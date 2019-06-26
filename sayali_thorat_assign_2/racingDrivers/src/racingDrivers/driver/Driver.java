@@ -1,27 +1,33 @@
-
 package racingDrivers.driver;
-    
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import racingDrivers.driverStates.RaceContext;
+import racingDrivers.util.FileProcessor;
+
 /**
- * @author AuthorName
- *
+ * @author Sayali Thorat
+ *this class is used to create all objects and to deal with command line arguments
  */
-    
-    public class Driver {
-	
-	public static void main(String[] args) {
-	    
-	    /*
-	     * As the build.xml specifies the arguments as argX, in case the
-	     * argument value is not given java takes the default value specified in
-	     * build.xml. To avoid that, below condition is used
-	     */
-	    if ( (args.length != 3) || args[0].equals("${arg0}") || args[1].equals("${arg1}") || args[2].equals("${arg2}")) {
-		    
-		    System.err.println("Error: Incorrect number of arguments. Program accepts 5 argumnets.");
-		    System.exit(0);
-	    } // end of if
-	    
-	    System.out.println("Hello World! Lets get started with the assignment");
-	    
-	}  // end public static void main
-    }  // end public class Driver
+
+public class Driver {
+
+	public static void main(String[] args) throws FileNotFoundException, IOException {
+		// TODO Auto-generated method stub
+
+		if(args.length != 1) {
+			
+			System.out.println("Missing Input or Output File");
+			System.out.println("Run the program as  : ant -buildfile build.xml run -Darg0=infile.txt -Darg1=outfile.txt");
+			System.exit(0);
+		}
+		
+		String inputFile = args[0];
+		System.out.println("Argo 0 "+inputFile);
+
+		
+		FileProcessor fpobj = new FileProcessor(inputFile);
+		RaceContext rcobj = new RaceContext(inputFile);
+	}
+}
