@@ -1,5 +1,6 @@
 package racingDrivers.driver;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -27,7 +28,38 @@ public class Driver {
 		System.out.println("Argo 0 "+inputFile);
 
 		
-		FileProcessor fpobj = new FileProcessor(inputFile);
+		FileProcessor fpobj = new FileProcessor();
 		RaceContext rcobj = new RaceContext(inputFile);
+		
+		BufferedReader br1 = fpobj.OpenFile(inputFile);
+		
+		String line = fpobj.readLine(br1);
+		while (line != null) 
+		{
+			//System.out.println(line);
+			String[] splited = line.split("\\s+");
+			
+			if(splited.length==1) {
+				//call new array
+				//create_array(Integer.parseInt(splited[0]));
+				System.out.println("No of drivers is : " + Integer.parseInt(splited[0]));
+				
+				//create dat much objs
+				
+				rcobj.createObjects(Integer.parseInt(splited[0]));
+				
+			}
+			else {
+				
+				rcobj.setDriverContext(line);
+				System.out.println(line);
+			}
+			line = fpobj.readLine(br1);
+			
+			
+		}
+		
+		
+		//rcobj.check();
 	}
 }
