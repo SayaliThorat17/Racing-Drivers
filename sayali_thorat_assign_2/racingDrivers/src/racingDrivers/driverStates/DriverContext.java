@@ -6,21 +6,22 @@ package racingDrivers.driverStates;
  */
 
 
-public class DriverContext implements DriverContextI {
+public class DriverContext implements DriverContextI,Comparable<DriverContext>{
+double DriverState;
 	
-	double DriverState;
-	
-	double totaldistancecovered;
+	private double totaldistancecovered;
 	
 	String state ;
+	private int driverNumber;
 	
 
 	
 	
-	public DriverContext() {
+	public DriverContext(int num) {
 		// TODO Auto-generated constructor stub
 		
 		this.totaldistancecovered = totaldistancecovered;
+		driverNumber=num;
 	}
 	
 	public void totalDistanceTravelled(double input) {
@@ -40,11 +41,21 @@ public class DriverContext implements DriverContextI {
 		
 		return this.state;
 	}
+public int getDriverNo() {
+		
+		return this.driverNumber;
+	}
+public double getTotalDis() {
 	
-	/*public double calculateState() {	
-		
-		
-		 
-		
-	}*/
+	return this.DriverState;
 }
+
+@Override
+public int compareTo(DriverContext o) {
+	// TODO Auto-generated method stub
+	return 0;
+}
+
+
+}
+
