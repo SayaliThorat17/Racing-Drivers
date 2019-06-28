@@ -60,20 +60,14 @@ public class RaceContext {
 	}
 	
 	
-	public void calculateLeader(DriverContext[] obj) {
+	public void calculateLeader(DriverContext[] obj, int size) {
 		
 		String arr[] = new String[obj.length];
 		
-		HashMap<DriverContext, Integer> map = new HashMap<>(); 
+		Object arrSorted[] = new Object[size]; 
+			
 		
-		for (int i = 0; i < obj.length; i++) {
-			
-			if(arr[i]){
-				
-			}
-			
-		}
-	}
+	} 
 	
 	
 	
