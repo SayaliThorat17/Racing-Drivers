@@ -10,6 +10,7 @@ import java.io.IOException;
 import racingDrivers.util.Results;
 import racingDrivers.driverStates.RaceContext;
 import racingDrivers.util.FileProcessor;
+import racingDrivers.util.MyLogger;
 
 /**
  * @author sayali
@@ -24,17 +25,28 @@ public class Driver {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		// TODO Auto-generated method stub
 
-		if(args.length != 2) {
-			
-			System.out.println("Missing Input or Output File");
-			System.out.println("Run the program as  : ant -buildfile build.xml run -Darg0=infile.txt -Darg1=outfile.txt");
+		if(args.length != 3) {
+			System.out.println("Missing Input or Output File or Debug Value");
+			System.out.println("Run the program as  : ant -buildfile build.xml run -Darg0=infile.txt -Darg1=outfile.txt debug_num(between 0 to 4)");
 			System.exit(0);
 		}
 		
 		String inputFile = args[0];
 		String outputFile= args[1];
+		String debug_num= args[2];
 		System.out.println("Argo 0 "+inputFile);
-
+		System.out.println("Argo 1 "+outputFile);
+		System.out.println("Argo 2 "+debug_num+"\n");
+		
+		int debugValue = Integer.parseInt(args[2]);
+		
+		if((debugValue >4) || (debugValue<0)) {
+			
+			System.out.println("Invalid debug argument .Please enter debug value from 0 to 4");
+			System.exit(0);
+		}
+		
+		MyLogger.setDebugValue(debugValue);
 		
 		FileProcessor fpobj = new FileProcessor();
 		RaceContext rcobj = new RaceContext(inputFile);
@@ -50,11 +62,9 @@ public class Driver {
 			
 			if(splited.length==1) {
 				//call new array
-				//create_array(Integer.parseInt(splited[0]));
-				System.out.println("No of drivers is : " + Integer.parseInt(splited[0]));
 				numOfDriver=Integer.parseInt(splited[0]);
 						rcobj.setTotalNumberOfDriver(numOfDriver);
-				//create dat much objs
+				//create that much objects
 				
 				rcobj.createObjects(Integer.parseInt(splited[0]));
 				
@@ -62,7 +72,7 @@ public class Driver {
 			else {
 				
 				rcobj.setDriverContext(line);
-				System.out.println(line);
+				//System.out.println(line);
 				rcobj.calculateLeader(numOfDriver,resultObj);
 				resultObj.writeToFile("\n");
 			}
@@ -72,7 +82,7 @@ public class Driver {
 		}
 		
 		resultObj.closeFile();
-		//rcobj.check();
+		
 	}
 
 }

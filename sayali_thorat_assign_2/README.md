@@ -31,18 +31,18 @@ Description: Compiles your code and generates .class files inside the BUILD fold
 -----------------------------------------------------------------------
 ## Instruction to run:
 
-I havent implemented logger file yet so the arguments to be passed for my program should be only inputFile and outputFile.
-
 In the folder: "sayali_thorat_assign_2/racingDrivers" run the following command:
 
-ant -buildfile src/build.xml run -Darg0=input.txt -Darg1=output.txt
+####Command: ant -buildfile src/build.xml run -Darg0=input.txt -Darg1=output.txt -Darg2=4
+
+for -Darg2 enter values between 0 to 4
 
 -----------------------------------------------------------------------
 ## Description:
 
 I have defined all my calculation methods in RaceContext.java file and I have setPositions and states in my DriverContext.java file.
 I have used Driver.java to call my objects of files and accept arguments from user.
-I have tried to implement state_pattern.
+I have tried to implement state_pattern for this project to note changes in driver state.
 calculateLeader method in RaceContext is where I am finding the positions of drivers based on their totalDistanceTravelled.
 I have documented my javadoc style comments in my doc folder.
 I have tested my code based on the input.txt file which I have submitted, the same one which was given to us.
@@ -58,4 +58,4 @@ I am involved in plagiarism or cheating an official form will be
 submitted to the Academic Honesty Committee of the Watson School to
 determine the action that needs to be taken. "
 
-Date: -- 06/28/2019
+Date: -- 06/29/2019

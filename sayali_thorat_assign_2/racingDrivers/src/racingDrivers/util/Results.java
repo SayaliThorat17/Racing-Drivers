@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import racingDrivers.util.MyLogger.DebugLevel;
+
 
 /**
  * @author sayali
@@ -23,17 +25,19 @@ public class Results  implements FileDisplayInterface, StdoutDisplayInterface{
 		// TODO Auto-generated constructor stub
     	outputFileName=outfilename;
     	fileWriter = new File(outputFileName);
+    	MyLogger.writeMessage("Results Contructor is called.", DebugLevel.CONSTRUCTOR);
 
         // Create file
     	try {
 			fileWriter.createNewFile();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			 MyLogger.writeMessage("Error while creating file", DebugLevel.FILEEXCEPTION);
 			e.printStackTrace();
 		}
 
     	try {
-    		System.out.println("Output File :- "+outputFileName);
+    		//System.out.println("Output File :- "+outputFileName);
 			bw = new BufferedWriter(new FileWriter(outputFileName));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -53,12 +57,14 @@ public class Results  implements FileDisplayInterface, StdoutDisplayInterface{
             }
             try
             {
+            	MyLogger.writeMessage("Writing results in File", DebugLevel.IN_RESULTS);
                     bw.write(text);
                     
             }
             catch( IOException e)
             {
                     System.err.println("Error while writing");
+                    MyLogger.writeMessage("Error while writing", DebugLevel.FILEEXCEPTION);
                     e.printStackTrace();
             }
     }
