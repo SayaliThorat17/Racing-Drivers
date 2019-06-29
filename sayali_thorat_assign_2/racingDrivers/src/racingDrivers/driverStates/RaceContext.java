@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package racingDrivers.driverStates;
 
 import racingDrivers.util.Results;
@@ -7,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,24 +19,21 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-//import com.sun.tools.classfile.Opcode.Set;
-
 import racingDrivers.util.FileProcessor;
 import racingDrivers.driverStates.DriverContext;
 
+
+
 /**
- * @author Sayali Thorat
+ * @author sayali
  *this class is used to hold references to DriverContextClass.
  */
-
 
 public class RaceContext {
 	private String inputFile;
 
 	private double arr[];	//
-	
-	private int driverNumber;
-
+	private int totalNoOfDriver;
 	private DriverContext[] DriverContextObj;	//obj of class //arr of obj
 
 
@@ -40,13 +41,24 @@ public class RaceContext {
 	public RaceContext(String inputFile) {
 		super();
 		this.inputFile = inputFile;
+		totalNoOfDriver=0;
 	}
 
+	public void setTotalNumberOfDriver(int driver) {
+		this.totalNoOfDriver=driver;
+	}
 
+	public int getTotalNumberOfDriver() {
+		return this.totalNoOfDriver;
+	}
 
 	public void createObjects(int numObjects) {
 
 		DriverContextObj = new DriverContext[numObjects];
+		for (int i = 0; i < totalNoOfDriver; i++)
+		{
+		this.DriverContextObj[i] = new DriverContext(totalNoOfDriver);
+		}
 	}
 
 
@@ -62,75 +74,85 @@ public class RaceContext {
 			System.out.println(Double.parseDouble(splited[i]));
 			//this.arr[i] = Double.parseDouble(splited[i]);
 
-			this.DriverContextObj[i] = new DriverContext(i);
-			this.DriverContextObj[i].totalDistanceTravelled(Double.parseDouble(splited[i]));
+			this.DriverContextObj[i].totalDistanceTravelled(Double.parseDouble(splited[i])); 
 
 		}
 
-		
+
 
 	}
 
 
-	public void calculateLeader( int size) {
-
+	public void calculateLeader( int size, Results resultObj) throws IOException {
 		
-		Map<Double, DriverContext> map = new TreeMap<>();
-
-
-		for (int i = 0; i < DriverContextObj.length; i++) {
-
-			map.put(DriverContextObj[i].getTotalDis() ,DriverContextObj[i]);
+		DriverContext[] copyArray=Arrays.copyOf(DriverContextObj, DriverContextObj.length);
+		System.out.println("Before sort");
+		 for(DriverContext p: copyArray) {
+		        System.out.println(p.getDriverNo());
+		    }
+		Arrays.sort(copyArray);
+		System.out.println("After sort");
+		int position=0;
+		
+		for (int j = 0; j < copyArray.length; j++) 
+		{
+			if(j==0)
+			{
+				copyArray[j].setPosition(position+1);
+				if(copyArray[j+1].getTotalDis()==copyArray[j].getTotalDis())
+				{
+					copyArray[j].setState("RECKLESS");
+				}
+				else
+				{
+					copyArray[j].setState(calculation(copyArray[j].getPosition()));
+				}
+				position++;
+			}
+			else if(copyArray[j-1].getTotalDis()==copyArray[j].getTotalDis())
+			{
+				copyArray[j].setPosition(position);
+				copyArray[j].setState("RECKLESS");
+			}
+			else 
+			{
+				copyArray[j].setPosition(position+1);
+				position++;
+				copyArray[j].setState(calculation(copyArray[j].getPosition()));
+			}
+			
+			 
 		}
-		
-		TreeMap<Double, DriverContext> sorted = new TreeMap<Double, DriverContext>(Collections.reverseOrder());
-		//System.out.println(Collections.singletonList(map));
-		
-		Set set2 = map.entrySet();
-        Iterator iterator2 = set2.iterator();
-        while(iterator2.hasNext()) {
-            Map.Entry mentry2 = (Map.Entry)iterator2.next();
-            System.out.print("Key is: "+mentry2.getKey() + " & Value is: ");
-            System.out.println(mentry2.getValue());
-         } 
-		
-		
-		
-		/*List<Double> sortedDriver = new ArrayList<>(map.keySet());
-		Collections.sort(sortedDriver,Collections.reverseOrder());
-		
-		Set set2 = map.entrySet();
-        Iterator iterator2 = set2.iterator();
-        while(iterator2.hasNext()) {
-            Map.Entry mentry2 = (Map.Entry)iterator2.next();
-            System.out.print("Key is: "+mentry2.getKey() + " & Value is: ");
-            System.out.println(mentry2.getValue());
-         } 
-		
-		*/
-      //Create a hashmap with key as driver number and values as total distance
-		//Sort based on value
 
-       
+		 System.out.println("**************Driver Position **************");
+		// for(DriverContext p: DriverContextObj) {
+		  //      System.out.print("\t"+p.getPosition());
+		    //}
 		
-        
-        
-        
-        
-        
-       /* System.out.println("Sorted driver positions");
-
-        for (int i = 0; i < sortedDriver.size(); i++) {
-	System.out.println(sortedDriver.get(i));
-	} */
+		 System.out.println("**************State **************");
+		 for(DriverContext p: DriverContextObj) {
+		        System.out.print("\t"+p.getState()+"\t");
+		        resultObj.writeToFile("\t"+p.getState()+"\t");
+		    }
 		
-        
-				
-					
-
-	}
 	
 	
+	} 
+	
+	public String calculation(int position) {
+		
 
+		//System.out.println("Driver num" +driverNumber);
+		if(position <(0.3 * getTotalNumberOfDriver() ))
+			return "CONFIDENT";
+		else if( ( (Math.round(0.3 * getTotalNumberOfDriver() )) <= position ) &&   ((Math.round(0.3 * getTotalNumberOfDriver() ))  < (Math.round(0.7 * getTotalNumberOfDriver() )) ) && (position < (Math.round(0.7 * getTotalNumberOfDriver() )) ))	
+			return "CALCULATIVE";
+		else if(position >= (Math.round(0.7 * getTotalNumberOfDriver())))
+			return "RECKLESS";
+		else
+			return "";
+			
+
+		}
 
 }
