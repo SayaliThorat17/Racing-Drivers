@@ -71,7 +71,7 @@ public class RaceContext {
 
 			//this.arr[i] = Double.parseDouble(splited[i]);
 
-			//System.out.println(Double.parseDouble(splited[i]));
+			System.out.println(Double.parseDouble(splited[i]));
 			//this.arr[i] = Double.parseDouble(splited[i]);
 
 			this.DriverContextObj[i].totalDistanceTravelled(Double.parseDouble(splited[i])); 
@@ -86,12 +86,12 @@ public class RaceContext {
 	public void calculateLeader( int size, Results resultObj) throws IOException {
 		
 		DriverContext[] copyArray=Arrays.copyOf(DriverContextObj, DriverContextObj.length);
-		/*System.out.println("Before sort");
+		System.out.println("Before sort");
 		 for(DriverContext p: copyArray) {
 		        System.out.println(p.getDriverNo());
-		    } */
+		    }
 		Arrays.sort(copyArray);
-		//System.out.println("After sort");
+		System.out.println("After sort");
 		int position=0;
 		
 		for (int j = 0; j < copyArray.length; j++) 
@@ -124,14 +124,14 @@ public class RaceContext {
 			 
 		}
 
-		// System.out.println("**************Driver Position **************");
+		 System.out.println("**************Driver Position **************");
 		// for(DriverContext p: DriverContextObj) {
 		  //      System.out.print("\t"+p.getPosition());
 		    //}
 		
-		 //System.out.println("**************State **************");
+		 System.out.println("**************State **************");
 		 for(DriverContext p: DriverContextObj) {
-		        //System.out.print("\t"+p.getState()+"\t");
+		        System.out.print("\t"+p.getState()+"\t");
 		        resultObj.writeToFile("\t"+p.getState()+"\t");
 		    }
 		
@@ -154,5 +154,6 @@ public class RaceContext {
 			
 
 		}
+
 
 }
