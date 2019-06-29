@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package racingDrivers.util;
 
 import java.io.BufferedWriter;
@@ -6,28 +9,31 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
+/**
+ * @author sayali
+ *This class is used to generate results for all methods we are running for our project
+ */
 
-public class Results implements FileDisplayInterface, StdoutDisplayInterface  {
-
-	
-	private BufferedWriter bw;
-	private String outputFileName;
-	private File fileWriter;
-	public Results(String outfilename)  {
+public class Results  implements FileDisplayInterface, StdoutDisplayInterface{
+	//private File inWriter;
+    private BufferedWriter bw;
+    private String outputFileName;
+    private File fileWriter;
+    public Results(String outfilename)  {
 		// TODO Auto-generated constructor stub
-		outputFileName=outfilename;
-		fileWriter = new File(outputFileName);
+    	outputFileName=outfilename;
+    	fileWriter = new File(outputFileName);
 
-		// Create file
-		try {
+        // Create file
+    	try {
 			fileWriter.createNewFile();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		try {
-			System.out.println("Output File :- "+outputFileName);
+    	try {
+    		System.out.println("Output File :- "+outputFileName);
 			bw = new BufferedWriter(new FileWriter(outputFileName));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -39,24 +45,25 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface  {
 		System.out.println(s);
 	}
 	public void writeToFile(String text)
-	{
-		System.out.println("Inside Write sToStdOut"+text);	//Inside Write sToStdOut
-		if ( text == null )
-		{
-			return;
-		}
-		try
-		{
-			bw.write(text + "\n");
-
-		}
-		catch( IOException e)
-		{
-			System.err.println("Error while writing");
-			e.printStackTrace();
-		}
-	}
+    {
+		System.out.println("Inside Write sToStdOut"+text);
+            if ( text == null )
+            {
+                    return;
+            }
+            try
+            {
+                    bw.write(text);
+                    
+            }
+            catch( IOException e)
+            {
+                    System.err.println("Error while writing");
+                    e.printStackTrace();
+            }
+    }
 	public void closeFile() throws IOException {
 		bw.close();
 	}
+
 }

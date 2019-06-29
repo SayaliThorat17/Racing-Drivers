@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package racingDrivers.util;
 
 import java.io.BufferedReader;
@@ -6,10 +9,9 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * @author Sayali Thorat
+ * @author sayali
  *this class is used to read the input file and process it.
  */
-
 
 public class FileProcessor {
 	
