@@ -46,7 +46,7 @@ public class Results  implements FileDisplayInterface, StdoutDisplayInterface{
 	}
 	public void writeToFile(String text)
     {
-		System.out.println("Inside Write sToStdOut"+text);
+		//System.out.println("Inside Write sToStdOut"+text);
             if ( text == null )
             {
                     return;
