@@ -1,5 +1,5 @@
-# CSX42: Assignment 2
+# CSX42: Design Patterns -  Assignment 2
 
 
 
-I have tried to implement state_pattern for this project to note changes in driver state.
+Implemented State Pattern for this project to note changes in driver state.
